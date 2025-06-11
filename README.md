@@ -11,6 +11,7 @@ You can install the development version of `lvr` from GitHub with:
 ```r
 # install.packages("devtools")  # if not installed yet
 devtools::install_github("straywilddog/lvr")
+```
 
 Or download the latest release zip file from the Releases page and install locally with:
 
