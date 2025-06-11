@@ -1,0 +1,25 @@
+Package: lvr
+Type: Package
+Title: Analysis of the Dynamical System of Love Between Two People
+Version: 0.0.1
+Authors@R: c(
+    person(
+      given = "Zhaoyang", family = "Li", 
+      email = "straywilddog@outlook.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: This package applies the Euler method to analyze a two-dimensional 
+  autonomous differential equation system representing love dynamics. 
+  It is created as part of the author's learning process in R's OOP system and R package development.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    stats
+Suggests: 
+    reshape2,
+    ggplot2,
+    ggquiver,
+    metR
+RoxygenNote: 7.3.2
