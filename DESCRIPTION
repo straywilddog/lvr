@@ -1,7 +1,7 @@
 Package: lvr
 Type: Package
 Title: Simulation and Game-Theoretic Analysis of Romantic Dynamics
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person(
       given = "Zhaoyang", family = "Li", 
