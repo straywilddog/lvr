@@ -150,7 +150,7 @@ mev_Yeffect <- function(X = NULL, pX = NULL, pY, Score = NULL) {
     pX <- X$p
     s <- X$score
   } else if (!is.null(pX)) {
-    if (!is.numeric(pX) || length(pX) != 1) stop("'pX' must be a numeric scalar.")
+    if (!is.numeric(pX)) stop("'pX' must be numeric.")
     if (!is.matrix(Score) || any(dim(Score) != c(2, 2))) stop("'Score' must be a 2x2 matrix.")
     s <- Score
   } else {
