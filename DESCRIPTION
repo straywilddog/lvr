@@ -1,6 +1,6 @@
 Package: lvr
 Type: Package
-Title: Analysis of the Dynamical System of Love Between Two People
+Title: Simulation and Game-Theoretic Analysis of Romantic Dynamics
 Version: 0.0.1
 Authors@R: c(
     person(
@@ -9,9 +9,12 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: This package applies the Euler method to analyze a two-dimensional 
-  autonomous differential equation system representing love dynamics. 
-  It is created as part of the author's learning process in R's OOP system and R package development.
+Description: This package provides tools for simulating and analyzing romantic dynamics 
+  between two individuals using two-dimensional autonomous differential equations 
+  and simple game-theoretic models. It applies the Euler method for numerical integration 
+  and includes utilities for modeling decision-making scenarios such as confession strategies. 
+  Developed as part of the author's exploration into R's object-oriented programming 
+  and package development systems.
 License: CC0
 Encoding: UTF-8
 LazyData: true

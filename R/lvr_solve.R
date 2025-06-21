@@ -34,8 +34,8 @@
 #'
 #' @examples
 #' R = lvrCreate(Name = "Romeo", Inilv = 1,
-#' Lvsef = function(x, y) {5 * y - .97 * x * y},
-#' Lvoth = function(x, y) {1.2 * y})
+#'               Lvsef = function(x, y) {5 * y - .97 * x * y},
+#'               Lvoth = function(x, y) {1.2 * y})
 #' J = lvrCreate(Name = "Juliet", Inilv = 0.5,
 #'               Lvsef = function(x, y) {-3 * y + 1.01 * x * y},
 #'               Lvoth = function(x, y) {-1.1 * y})

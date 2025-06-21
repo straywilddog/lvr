@@ -2,8 +2,12 @@
 
 S3method(Ops,lvr)
 S3method(print,lvr)
+export(ev_Yeffect)
+export(ev_solve)
+export(evfun_Yeffect)
 export(is.lvr)
 export(lvrCreate)
+export(mev_Yeffect)
 export(phaselvr)
 export(trajlvr)
 importFrom(stats,rnorm)

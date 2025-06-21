@@ -20,7 +20,8 @@ Print method for objects of class 'lvr'.
 \examples{
 SWD = lvrCreate(Name = "Stray Wild Dog", Inilv = 0.9,
                 Lvsef = function(x, y) {0},
-                Lvoth = function(x, y) {0.5 * y})
+                Lvoth = function(x, y) {0.5 * y},
+                Score = c(1.1, 0.5, -2, 0))
 print(SWD)
 
 }

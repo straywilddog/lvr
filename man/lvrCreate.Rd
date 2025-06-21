@@ -7,12 +7,14 @@
 lvrCreate(
   Name = character(),
   Inilv = 0,
+  P = 0,
   Lvsef = function(x, y) {
      x
  },
   Lvoth = function(x, y) {
      y
- }
+ },
+  Score = matrix(data = c(1, 0, -1, 0), ncol = 2, byrow = T)
 )
 }
 \arguments{
@@ -20,11 +22,34 @@ lvrCreate(
 
 \item{Inilv}{Numeric; the initial favorability (initial value of the variable representing the person's favorability).}
 
-\item{Lvsef}{Function; a self-influence function which must include two variables. This function defines how the person's favorability
-is influenced by their own state and the other person's state.}
+\item{P}{Numeric. Represents the individual's probability of confessing their feelings, or the probability that the other person accepts the confession.}
 
-\item{Lvoth}{Function; an other-variable influence function which must include two variables. This function defines how the person's favorability
-is influenced by the other person's state.}
+\item{Lvsef}{An function.
+A self-influence function which must include two variables. This function defines how the person's favorability is influenced by their own state and the other person's state.}
+
+\item{Lvoth}{An function.
+An other-variable influence function which must include two variables. This function defines how the person's favorability is influenced by the other person's state.}
+
+\item{Score}{A 2×2 numeric matrix or a numeric vector of four values.
+If a matrix is provided, it represents the effect matrix of individual choices after a confession.
+The first column corresponds to the effects of one's own decision to confess, depending on the other's responses (accept or reject).
+The first row reflects the influence of the other person accepting the confession, depending on whether one confesses or not.
+
+If a numeric vector is provided, the four values represent, in order:
+\enumerate{
+  \item \eqn{s_{11}} — one confesses and the other accepts;
+  \item \eqn{s_{12}} — one does not confess but the other would have accepted;
+  \item \eqn{s_{21}} — one confesses and the other rejects;
+  \item \eqn{s_{22}} — one does not confess and the other would have rejected.
+}
+
+The corresponding effect matrix is:
+\deqn{
+\begin{bmatrix}
+s_{11} & s_{12} \\
+s_{21} & s_{22}
+\end{bmatrix}
+}}
 }
 \value{
 An object of class `lvr` containing:
@@ -33,6 +58,7 @@ An object of class `lvr` containing:
     \item \code{inilv}: Initial favorability value.
     \item \code{lvsef}: Self-influence function.
     \item \code{lvoth}: Other-variable influence function.
+    \item \code{score}: An effect matrix of individual choice after confession.
   }
 }
 \description{
@@ -44,6 +70,7 @@ simulating the behavior of a person within the system.
 \examples{
 someone = lvrCreate(Name = "Stray Wild Dog", Inilv = 0.9,
                     Lvsef = function(x, y) {0},
-                    Lvoth = function(x, y) {0.5 * y})
+                    Lvoth = function(x, y) {0.5 * y},
+                    Score = c(1.2, 0.3, -1.3, 0))
 
 }
