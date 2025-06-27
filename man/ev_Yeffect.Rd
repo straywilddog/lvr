@@ -4,10 +4,21 @@
 \alias{ev_Yeffect}
 \title{Compute the Expected Effect on an Individual Based on the Other Person's Response}
 \usage{
-ev_Yeffect(X, pY, response = TRUE)
+ev_Yeffect(
+  X = NULL,
+  pX = 0,
+  s = matrix(rep(0, 4), nrow = 2),
+  pY,
+  response = TRUE
+)
 }
 \arguments{
 \item{X}{An object of class \code{lvr}, representing the individual making the confession.}
+
+\item{pX}{Numeric. The probability that the individual makes the confession.}
+
+\item{s}{A 2×2 numeric matrix.
+it represents the effect matrix of individual choices after a confession.}
 
 \item{pY}{Numeric. The probability that the other person accepts the confession.}
 

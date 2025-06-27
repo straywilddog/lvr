@@ -88,6 +88,9 @@ trajlvr <- function(Lvr1, Lvr2, step_t = 0.0001, Times = 100, noise = 0, m = 0, 
     lvrdata[i, "lv1"] = lvrdata[i - 1, "dl1"] * step_t + lvrdata[i - 1, "lv1"]
     lvrdata[i, "lv2"] = lvrdata[i - 1, "dl2"] * step_t + lvrdata[i - 1, "lv2"]
 
+    Lvr1$p <- Lvr1$pac(lvrdata[i, "lv1"], lvrdata[i, "lv2"])
+    Lvr2$p <- Lvr2$pac(lvrdata[i, "lv1"], lvrdata[i, "lv2"])
+
     lvrdata[i, "dl1"] = noise * rnorm(1, mean = m, sd = s) +
       Lvr1$lvsef(lvrdata[i, "lv1"], lvrdata[i, "lv2"]) +
       Lvr1$lvoth(lvrdata[i, "lv1"], lvrdata[i, "lv2"])

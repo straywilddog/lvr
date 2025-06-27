@@ -22,6 +22,8 @@ Imports:
     stats
 Suggests: 
     reshape2,
+    tidyr, 
+    dplyr,
     ggplot2,
     ggquiver,
     metR

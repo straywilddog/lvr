@@ -222,6 +222,70 @@ p = ggplot(df, aes(x = lv1, y = lv2)) +
   theme_bw()
 p #爱情期，两人的极限环消失，终将回到原点
 
+# simple game for LR ------------------------------------------------------
+
+# 认为对方喜欢自己而选择表白的概率
+pxyes <- function(a) {
+  return(function(x, y) {
+    if (length(x) != length(y)) stop("x and y must be of the same length")
+    ifelse(y < 0, 0, ifelse(y < a, y / a, 1))
+  })
+}
+# 当对方好感度达到了 a 后
+# 必然会选择表白
+# 如果对方有 px 的概率选择表白
+# 那么向对方表白也会有 px 的概率被同意
+# 如果自身有 px 的概率选择表白
+# 那么对方表白时也会有 px 的概率同意
+
+# 选择 3.1.1 中的模型
+f <- function(a, b) {
+  if (b <= 1) {b = 1} else {b = 2}
+  return(function(x, y) {
+    -x * (sqrt(x ^ 2 + y ^ 2) - a) ^ b #定义极限环
+  })
+}
+g <- function(d, X) {
+  pxf = X$pac
+  sm = X$score
+  return(function(x, y) {
+    px = pxf(x, y) #计算选择表白的概率
+    d * y + ev_Yeffect(pX = px, s = sm, pY = pxyes(2)(x, y), response = F) #对方选择不告白的纯策略
+  })
+}
+
+a1 = 1.9
+a2 = 2.4
+b = 1
+d1 = -1.1
+d2 = 1.5
+
+Rlvr = lvrCreate(Name = "Romeo", Inilv = 0.9, P = 0.5,
+                 Lvsef = f(a = a1, b = b), Lvoth = g(d1, Jlvr),
+                 Pac = pxyes(2),
+                 Score = c(7, -3, -5, 1))
+Jlvr = lvrCreate(Name = "Juliet", Inilv = 0.1, P = 0.5,
+                 Pac = pxyes(2),
+                 Lvsef = f(a = a2, b = b), Lvoth = g(d2, Rlvr),
+                 Score = c(7, -3, -5, 1))
+
+lvp = list(Lvsef1 = f(a = a1, b = b), Lvoth1 = g(d1, Jlvr),
+           Lvsef2 = f(a = a2, b = b), Lvoth2 = g(d2, Rlvr))
+
+inid = expand.grid(x = seq(-3, 3, .1),
+                   y = seq(-3, 3, .1))
+df = as.data.frame(phaselvr(data = inid, lvparam = lvp, step_t = 0.01, Times = 1))
+df = df[which(df$t == 0), ]
+
+p = ggplot(df, aes(x = lv1, y = lv2)) +
+  geom_streamline(aes(dx = dl1, dy = dl2), color = "blue", linewidth = .2,
+                  arrow.angle = 15) +
+  scale_x_continuous(limits = c(min(inid[, 1]), max(inid[, 1])), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(min(inid[, 2]), max(inid[, 2])), expand = c(0, 0)) +
+  xlab("R") + ylab("J") +
+  theme_bw()
+p
+
 # END ---------------------------------------------------------------------
 
 

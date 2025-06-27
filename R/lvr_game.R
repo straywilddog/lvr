@@ -1,6 +1,9 @@
 #' Compute the Expected Effect on an Individual Based on the Other Person's Response
 #'
 #' @param X An object of class \code{lvr}, representing the individual making the confession.
+#' @param pX Numeric. The probability that the individual makes the confession.
+#' @param s  A 2×2 numeric matrix.
+#' it represents the effect matrix of individual choices after a confession.
 #' @param pY Numeric. The probability that the other person accepts the confession.
 #' @param response Logical. Indicates whether the other person accepts the confession.
 #'        Use \code{TRUE} for acceptance and \code{FALSE} for rejection.
@@ -41,14 +44,19 @@
 #'
 #' @seealso \code{\link{evfun_Yeffect}}, \code{\link{mev_Yeffect}}
 #' @export
-ev_Yeffect <- function(X, pY, response = TRUE) {
-  if (!inherits(X, "lvr")) stop("X must be an object of class 'lvr'.")
+ev_Yeffect <- function(X = NULL, pX = 0, s = matrix(rep(0, 4), nrow = 2), pY, response = TRUE) {
+  if (!is.null(X)) {
+    if (!inherits(X, "lvr")) {
+      stop("X must be an object of class 'lvr'.")
+    } else {
+      pX <- X$p
+      s <- X$score
+    }
+  }
   if (missing(pY)) stop("Missing argument: 'pY'")
-  if (!is.matrix(X$score) || any(dim(X$score) != c(2, 2))) stop("'score' must be a 2x2 matrix in X.")
+  if (!is.matrix(s) || any(dim(s) != c(2, 2))) stop("'s' or 'score' in X must be a 2x2 matrix .")
   if (!is.logical(response) || length(response) != 1) stop("'response' must be a single TRUE/FALSE value.")
 
-  pX <- X$p
-  s <- X$score
 
   if (response) {
     return(pY * (pX * s[1, 1] + (1 - pX) * s[1, 2]))
