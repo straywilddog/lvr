@@ -14,6 +14,9 @@ lvrCreate(
   Lvoth = function(x, y) {
      y
  },
+  Pac = function(x, y) {
+     0.5
+ },
   Score = matrix(data = c(1, 0, -1, 0), ncol = 2, byrow = T)
 )
 }
@@ -29,6 +32,9 @@ A self-influence function which must include two variables. This function define
 
 \item{Lvoth}{An function.
 An other-variable influence function which must include two variables. This function defines how the person's favorability is influenced by the other person's state.}
+
+\item{Pac}{An functioin.
+This function estimates the likelihood of confessing, given the favorability levels of both persons as input variables.}
 
 \item{Score}{A 2×2 numeric matrix or a numeric vector of four values.
 If a matrix is provided, it represents the effect matrix of individual choices after a confession.

@@ -13,6 +13,8 @@
 #' A self-influence function which must include two variables. This function defines how the person's favorability is influenced by their own state and the other person's state.
 #' @param Lvoth An function.
 #' An other-variable influence function which must include two variables. This function defines how the person's favorability is influenced by the other person's state.
+#' @param Pac An functioin.
+#' This function estimates the likelihood of confessing, given the favorability levels of both persons as input variables.
 #' @param Score A 2×2 numeric matrix or a numeric vector of four values.
 #' If a matrix is provided, it represents the effect matrix of individual choices after a confession.
 #' The first column corresponds to the effects of one's own decision to confess, depending on the other's responses (accept or reject).
@@ -52,6 +54,7 @@
 #'
 lvrCreate = function(Name = character(), Inilv = 0, P = 0,
                      Lvsef = function(x, y) {x}, Lvoth = function(x, y) {y},
+                     Pac = function(x, y) {0.5},
                      Score = matrix(data = c(1, 0, -1, 0), ncol = 2, byrow = T))
 {
   stopifnot(is.character(Name))
@@ -59,6 +62,7 @@ lvrCreate = function(Name = character(), Inilv = 0, P = 0,
   stopifnot(is.numeric(P))
   stopifnot(is.function(Lvsef))
   stopifnot(is.function(Lvoth))
+  stopifnot(is.function(Pac))
 
   if (is.vector(Score)) {
     Score = matrix(Score[1 : 4], nrow = 2, byrow = T)
@@ -75,6 +79,7 @@ lvrCreate = function(Name = character(), Inilv = 0, P = 0,
     p = P,
     lvsef = Lvsef,
     lvoth = Lvoth,
+    pac = Pac,
     score = Score[c(1, 2), c(1, 2)]
   ),
   class = "lvr")
